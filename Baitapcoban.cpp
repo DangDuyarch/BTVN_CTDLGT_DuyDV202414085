@@ -56,6 +56,54 @@ void ThemSV(Node*& head, SinhVien newSVData) {     // 1. Tạo Node mới và g�
     p->link = Newnode;
 }
 
+void InSVCungNgaySinh(Node* head) {
+    bool foundGlobal = false;
+    Node* p = head;
+
+    while (p != nullptr) {
+        bool foundGroup = false;
+        Node* q = p->link;
+        
+        // Kiểm tra xem ngày sinh của p đã được in trong một nhóm trước đó chưa
+        // (Để tránh in lặp lại cùng một nhóm sinh viên)
+        bool alreadyPrinted = false;
+        Node* check = head;
+        while (check != p) {
+            if (check->data.ngaySinh.ngay == p->data.ngaySinh.ngay &&
+                check->data.ngaySinh.thang == p->data.ngaySinh.thang &&
+                check->data.ngaySinh.nam == p->data.ngaySinh.nam) {
+                alreadyPrinted = true;
+                break;
+            }
+            check = check->link;
+        }
+
+        if (!alreadyPrinted) {
+            // Tìm các node q đứng sau p có cùng ngày sinh
+            Node* tempQ = q;
+            while (tempQ != nullptr) {
+                if (tempQ->data.ngaySinh.ngay == p->data.ngaySinh.ngay &&
+                    tempQ->data.ngaySinh.thang == p->data.ngaySinh.thang &&
+                    tempQ->data.ngaySinh.nam == p->data.ngaySinh.nam) {
+                    if (!foundGroup) {
+                        cout << "\nCac sinh vien cung ngay sinh " << p->data.ngaySinh.ngay << "/" << p->data.ngaySinh.thang << ":" << endl;
+                        cout << "- " << p->data.hoTen << " (" << p->data.maSV << ")" << endl;
+                        foundGroup = true;
+                        foundGlobal = true;
+                    }
+                    cout << "- " << tempQ->data.hoTen << " (" << tempQ->data.maSV << ")" << endl;
+                }
+                tempQ = tempQ->link;
+            }
+        }
+        p = p->link;
+    }
+
+    if (!foundGlobal) {
+        cout << "Khong tim thay sinh vien cung ngay sinh" << endl;
+    }
+}
+
 // Hàm in danh sách đơn giản
 void InDanhSach(Node* head) {
     cout << "------------------------------------------" << endl;
@@ -80,10 +128,15 @@ int main() {
     ThemSV(head, {"202414401", "Nguyen Duc Kien", 1, {20, 3, 2006}, "HN", "DT05", "SEEE"});
     ThemSV(head, {"202414413", "Ha Dang Quang", 1, {5, 4, 2006}, "HN", "DT05", "SEEE"});
     ThemSV(head, {"202414203", "Van Thanh Dat", 1, {12, 5, 2006}, "HN", "DT05", "SEEE"});
-    ThemSV(head, {"202414073", "Le Khanh Linh", 0, {25, 6, 2006}, "HN", "DT05", "SEEE"});
+    ThemSV(head, {"202414073", "Nguyen Khanh Huyen", 0, {25, 6, 2006}, "HN", "DT05", "SEEE"});
+    ThemSV(head, {"202414074", "Le Khanh Linh", 0, {25, 6, 2006}, "HN", "DT05", "SEEE"});
     ThemSV(head, {"202414063", "Nguyen Manh Thien", 1, {30, 7, 2006}, "HN", "DT05", "SEEE"});
+    ThemSV(head, {"202414058", "Tran Duc Manh", 1, {30, 7, 2006}, "HN", "DT05", "SEEE"});
+    ThemSV(head, {"202414365", "Nguyen Quoc Huy", 1, {30, 7, 2006}, "HN", "DT05", "SEEE"});
     ThemSV(head, {"202414103", "Hoang Lam Que", 0, {18, 8, 2006}, "HN", "DT05", "SEEE"});
-  
+
+cout << "\nDang thuc hien xoa sinh vien trung ngay sinh..." << endl;
+    InSVCungNgaySinh(head);
 
     // In ra kết quả
     cout << "Danh sach sinh vien sau khi sap xep:" << endl;
