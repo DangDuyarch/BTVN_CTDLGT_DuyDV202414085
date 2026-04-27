@@ -1,57 +1,94 @@
 #include <iostream>
+#include <chrono>
 
+using namespace std;
+
+// Cấu trúc một nút trong danh sách liên kết
 struct Node {
-    int id;
-    Node* next;
-    Node(int val) : id(val), next(nullptr) {}
-};
+    int data;
+    Node* link;   };
 
-int findWinner(int n, int m) {
-    if (n <= 0) return -1;
-    if (n == 1) return 1;
+Node* createCircularList(int n) {
+    if (n <= 0) return nullptr;
 
-    Node* head = new Node(1);
-    Node* curr = head;
-    for (int i = 2; i <= n; i++) {
-        curr->next = new Node(i);
-        curr = curr->next;
+    Node *head = nullptr;
+    Node *tail = nullptr;
+
+    // GIAI ĐOẠN 1: Tạo danh sách liên kết đơn từ 1 đến N
+    for (int i = 1; i <= n; i++) {
+        // Tạo node mới
+        Node* newNode = new Node();
+        newNode->data = i;
+        newNode->link = nullptr;
+
+        if (head == nullptr) {
+            head = newNode; // Nút đầu tiên
+            tail = newNode;
+        } else {
+            tail->link = newNode; // Nối tiếp vào đuôi
+            tail = newNode;       // Cập nhật nút đuôi mới
+        }
     }
-    curr->next = head; 
 
-    Node* prev = curr; 
-    curr = head;      
+    // GIAI ĐOẠN 2: Nối đầu đuôi để thành vòng tròn (Circular)
+    if (tail != nullptr) {
+        tail->link = head; 
+        // Thay vì trỏ vào nullptr, đuôi trỏ về head để tạo vòng
+    }
 
-    while (curr->next != curr) { 
-        // Truyền bóng qua M lần
+    return head;
+}
+
+
+void findAndPrintWinner(Node* head, int m) {
+    if (head == nullptr) return;
+
+    Node* curr = head;
+    Node* prev = nullptr;
+
+    // Tìm nút đứng trước head để lát nữa dễ dàng xóa nút
+    Node* temp = head;
+    while (temp->link != head) {
+        temp = temp->link;
+    }
+    prev = temp; // prev lúc này là nút cuối cùng (đuôi)
+
+    cout << "Thu tu bi loai: ";
+    
+    // Vòng lặp dừng khi chỉ còn 1 người (người đó tự trỏ vào chính mình)
+    while (curr->link != curr) {
+        // 1. Nhảy m bước
         for (int i = 0; i < m; i++) {
             prev = curr;
-            curr = curr->next;
+            curr = curr->link;
         }
 
-       
-        prev->next = curr->next;
-        std::cout << "Loai nguoi so: " << curr->id << std::endl;
+        // 2. Loại bỏ người tại vị trí curr
+        cout << curr->data << " ";
+        prev->link = curr->link; // Nối người trước đó qua người bị loại
         
-        Node* temp = curr;
-        curr = prev->next; 
-        delete temp;       // Giải phóng bộ nhớ
+        Node* toDelete = curr;
+        curr = curr->link; // Người kế tiếp giữ bóng cho lượt mới
+        delete toDelete;   // Giải phóng bộ nhớ
     }
 
-    int winnerId = curr->id;
-    delete curr; // Giải phóng người chiến thắng cuối cùng
-    return winnerId;
+    cout << "\nNguoi chien thang cuoi cung la: " << curr->data << endl;
+    delete curr; // Xóa nút cuối cùng
 }
+
 
 int main() {
     int n, m;
-    std::cout << "Nhap so nguoi va buoc truyen: ";
-    if (!(std::cin >> n >> m)) return 0;
+    cout << "Nhap so nguoi N: ";
+    cin >> n;
+    cout << "Nhap so luot truyen M: ";
+    cin >> m;
 
-    int winner = findWinner(n, m);
-    if (winner != -1) {
-        
-        std::cout << "Nguoi con lai la: " << winner << std::endl;
-    }
+    // 1. Tạo vòng tròn
+    Node* circle = createCircularList(n);
+
+    // 2. Duyệt tìm người thắng cuộc
+    findAndPrintWinner(circle, m);
 
     return 0;
 }
