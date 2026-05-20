@@ -53,8 +53,8 @@ void Printtree(Node p, Tree T) {
      }   
     
     else {     cout << T.Data[p] << " ";    }   // Nếu ô mảng đó có dữ liệu -> In giá trị của nút
-    Printtree(Left_Child(p), T);        // In ra con trái trước
-    Printtree(Right_Child(p), T);       // Con phải sau 
+    Printtree(Left_Child(p), T);        // De quy voi con trái trước
+    Printtree(Right_Child(p), T);       // De quy con phải sau 
 }
 
 int main() {
