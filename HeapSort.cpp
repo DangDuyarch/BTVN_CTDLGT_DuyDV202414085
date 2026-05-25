@@ -9,30 +9,29 @@ void Print(int arr[], int n ){          //Hàm in ra mảng
     if (i < n - 1) cout << ", ";    }
     cout << " ]\n"; }
 
-// Vun đống (Vundong)
-void Vundong(int arr[], int n, int i) {    // Hàm thay đổi vị trí trong 1 nút, đảm bảo nút cha lớn hơn 2 con
+// Vun đống (Hoandoi)
+void Hoandoi(int arr[], int n, int i) {    // Hàm thay đổi vị trí trong 1 nút, đảm bảo nút cha lớn hơn 2 con
     int Nutcha = i;             // Tạo biến Nutcha để lưu vị trí nút cha đang xét
     int contrai = 2 * i + 1;    // Vị trí của 2 con trái, phải
     int conphai = 2 * i + 2;
 
-    if (arr[contrai] > arr[Nutcha])  // Nếu nút cha nhỏ hơn 1 trong 2 con 
+if (contrai < n && arr[contrai] > arr[Nutcha])  // Nếu nút cha có gtri nhỏ hơn nút con 
         Nutcha = contrai;             // Cập nhật nút cha thành con có gtri lớn hơn
-    if (arr[conphai] > arr[Nutcha])
+if (conphai < n && arr[conphai] > arr[Nutcha])
         Nutcha = conphai;
 
     if (Nutcha != i) {  // Nếu nút cha khác gtri ban đầu
         int b = arr[i];           // Tiến hành đổi chỗ giữa nút cha và nút con có gtri lớn hơn
         arr[i] = arr[Nutcha];    
         arr[Nutcha] = b;
-        Vundong(arr, n, Nutcha); // Đệ quy xuống dưới
+        Hoandoi(arr, n, Nutcha); // Đệ quy xuống dưới
     }
 
-    
 }
 
-void buildMaxHeap(int arr[], int n) {   // Hàm duyệt cây theo thứ tự từ mức thấp nhất, phải nhất
+void Vundong(int arr[], int n) {   // Hàm duyệt cây theo thứ tự từ mức thấp nhất, phải nhất
 for (int i = n / 2 - 1; i >= 0; i--) {   // Duyệt từ nút cha cuối cùng(n/2 - 1) về đầu mảng
-    Vundong(arr, n, i);   // Thay đổi vtri cho từng nút cha
+    Hoandoi(arr, n, i);   // Thay đổi vtri cho từng nút cha
     cout << "Vun dong o nut i = " << i << ":";
     Print(arr, n);    // In ra từng lần vun đống 
     }
@@ -45,7 +44,7 @@ int main() {
     Print(arr, n);
     cout << "\n";
 
-    buildMaxHeap(arr, n);
+    Vundong(arr, n);
 
     cout << "\n Ket qua: ";
 
