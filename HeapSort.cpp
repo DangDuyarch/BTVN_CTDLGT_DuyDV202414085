@@ -31,40 +31,50 @@ if (conphai < n && arr[conphai] > arr[Nutcha])
 
 void Taodong(int arr[], int n) {   // Hàm duyệt cây theo thứ tự từ mức thấp nhất, phải nhất, tạo thành đống để cbi xếp
 for (int i = n / 2 - 1; i >= 0; i--) {   // Duyệt từ nút cha cuối cùng(n/2 - 1) về đầu mảng
-    Vundong(arr, n, i);   // Thay đổi vtri cho từng nút cha
-    cout << "Vun dong o nut i = " << i << ":";
-    Print(arr, n);    // In ra từng lần vun đống 
+    Vundong(arr, n, i);   // Thay đổi vtri cho từng nút chak
+    cout << "Vun dong o nut i = " << i+1 << ":";
+    Print(arr, n);    // In ra từng lần vun đốngm
     }
 }
 void Sapxep(int arr[], int n) {   
     int buoc = 1;           // Chạy từ phần tử cuối cùng (n-1) ngược về 1
     for (int i = n - 1; i > 0; i--) {   
-    
     int b = arr[0];
-    arr[0] = arr[i];    // Đổi chỗ giữa nút gốc và ptu cuối cùng 
+    arr[0] = arr[i];    // Đổi chỗ giữa nút gốc và ptu cuối cùngk
     arr[i] = b;
-    Vundong(arr, i, 0); // Vun đống phần còn lại, kh tính cái vừa đổi
 
-    // In trạng thái ra màn hình
-    cout << "Cac buoc sap xep" ;
+    Vundong(arr, i, 0); // Vun đống phần còn lại, kh tính cái vừa đổiz
     Print(arr, n);
     buoc++;
 }
 }
 
 int main() {
-    int arr[] = {4, 1, 3, 2, 16, 9, 10, 14, 8 , 7};
-    int n= sizeof(arr) / sizeof(arr[0]);
+    int arrslide[] = {4, 1, 3, 2, 16, 9, 10, 14, 8 , 7}; // Nhap vào cây trong slide
+    int n= sizeof(arrslide) / sizeof(arrslide[0]);    // Tính số ptu của cây
 
-cout << "Mang ban dau:";
-    Print(arr, n);
-    cout << "\n Vun đống: ";
-    Taodong(arr, n);     // Bước đầu vun đống( theo slide)
-cout << "\n Sắp xep: ";
-    Sapxep(arr, n);// sap xep, doi cho
+cout << "Xet mang trong slide, mang ban dau:";
+Print(arrslide, n);     // In ra mảng ban đầu
+cout << "\nCac trang thai luu tru cho moi buoc vun dong: \n";
+Taodong(arrslide, n);     // Bước đầu vun đống( theo slide)
+cout << "\nCac trang thai luu tru cho moi buoc sap xep vun dong: \n";
+Sapxep(arrslide, n);// sap xep, doi cho kmkz
+cout << "\nCay sau khi sap xep:";
+    Print(arrslide, n);
 
-    cout << "\nCay sau khi sap xep:";
-    Print(arr, n);
+
+int arrbang[] = {11, 34, 32, 106, 38, 78, 203, 16, 84, 17, 39 , 15};   // Nhap vao cay tren bảng
+int a= sizeof(arrbang) / sizeof(arrbang[0]);
+
+cout << "Xet mang trong slide, mang ban dau:";
+Print(arrbang, a);    // in ra mảng ban đầu
+cout << "\nCac trang thai luu tru cho moi buoc vun dong: \n";
+Taodong(arrbang, a);     // Bước đầu vun đống( theo slide)
+cout << "\nCac trang thai luu tru cho moi buoc sap xep vun dong: \n";
+Sapxep(arrbang, a);// sap xep, doi cho
+
+cout << "\nCay sau khi sap xep:";
+Print(arrbang, a);
 
     return 0;
-}
+}  
