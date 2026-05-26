@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # BÀI TẬP TUẦN 12_CTDLGT_169185    
 Cài đặt giải thuật sắp xếp vun đống cho các cây ví dụ trong slide và trên bảng, in ra từng trạng thái lưu trữ cho mỗi bước vun đống và sắp xếp        
 Đặng Văn Duy - 202414085     
@@ -44,3 +45,10 @@ Cài đặt giải thuật sắp xếp vun đống cho các cây ví dụ trong 
 **Link Test case: https://docs.google.com/document/d/1wIAA6KjYC9aV1qpYsuO0M66i7h7J7uN1UdAE6WO_wpY/edit?tab=t.0** 
 
 
+=======
+﻿# Baitaptuan6
+Bai tap tuan 6        
+Họ và tên: Đặng văn Duy          
+Mssv: 202424085       
+Mã lớp: 169185 
+>>>>>>> repo-tuan6/main
