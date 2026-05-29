@@ -5,6 +5,7 @@
 // Quy tắc lập cây nhị phân hiện tại là: nếu nhỏ hơn hoặc bằng node hiện tại thì thêm vào con bên trái, nếu lớn hơn nút hiện tại thì bên phải
 
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 void add_nodeBST(int tree[], int max, int a) {    // Hàm thêm node vào cây nhị phân theo quy tắc 
@@ -18,13 +19,22 @@ void add_nodeBST(int tree[], int max, int a) {    // Hàm thêm node vào cây
         else return;
     }
 }
+
+
+void initial_BST(int arr[], int n, int tree[], int max) {    // Hàm dựng cây nhị phân tìm kiếm theo yêu cầu 
+    for (int i = 0; i < n; i++) {
+        add_nodeBST(tree, max, arr[i]);    // Thêm từng ptu trong mảng vào cây nhị phân bằng hàm có sẵn
+    }    }
+
+
+
 void search_BST(int tree[], int max, int find) {    // Hàm tìm kiếm 1 giá trị trong cây nhị phân 
     int i = 0; 
     while (i < max) {      // tạo vòng lặp từ đàu đến cuối cây 
 
-    if (tree[i] == 0) {  cout << "Khong tim thay gia tri " << find << endl;   // Kh thấy thì in ra thông báo tương tự
+    if (tree[i] == 0) {  cout << "Khong tim thay gia tri " << find << " trong cay tim kiem nhi phan" <<  endl;   // Kh thấy thì in ra thông báo tương tự
             return; }
-    if (tree[i] == find) { cout << "Tim thay " << find << " tai vi tri: " << i << endl;  // Tìm thấy cũng in ra thông báo tương tự
+    if (tree[i] == find) { cout << "Tim thay gia tri " << find << " tai vi tri: " << i << endl;  // Tìm thấy cũng in ra thông báo tương tự
             return;   }
 
 
@@ -32,10 +42,11 @@ void search_BST(int tree[], int max, int find) {    // Hàm tìm kiếm 1 giá t
         i = 2 * i + 1;  }
     else { i = 2 * i + 2; }  // ngược lại thì sang trái
 }
-    cout << "Khong tim thay gia tri " << find << endl;   // Lặp hết mà kh thấy thì in ra kh thấy
+    cout << "Khong tim thay gia tri " << find << " trong cay tim kiem nhi phan" <<  endl;   // Lặp hết mà kh thấy thì in ra kh thấy
 }
 
-void Print_BST(int tree[], int max) {
+
+void Print_BST(int tree[], int max) {      // Hàm in cây từ đầu đến node cuối cùng khác rỗng 
     int p = -1;
     for (int i = max - 1; i >= 0; i--) {     // Tìm ptu cuối cùng có nghĩa
         if (tree[i] != 0) { p = i;   break;  }  } // Tìm phần tử khác rỗng cuối cùng và lưu vị trí
@@ -46,19 +57,19 @@ void Print_BST(int tree[], int max) {
 
 
 int main() {
-    int tree[100] = {0};  // tạo mảng 100 ptu trong đó 0 đại diện cho node rỗng
     int arr[] = {2001,2002,2006,2007,2003,2004,2005,2001,1999,2004};
     int n = sizeof(arr) / sizeof(arr[0]);    
+    int max = pow(2,n)-1;    // Tính số node tối đa của cây nhị phân làm từ các gtri trong mảng
+    int tree[max] = {0};
 
-    for (int i = 0; i < n; i++) {
-    add_nodeBST(tree, 100, arr[i]);   }    // Dùng hàm đã tạo để add từng node, tạo thành cây nhị phân tìm kiếm
-    Print_BST(tree, 100);
+    initial_BST(arr, n, tree, max);
+    Print_BST(tree, max);
 
-    add_nodeBST(tree, 100, 1777);       // thêm ptu vào cây nhị phân tìm kiếm
-    Print_BST(tree, 100);
+    add_nodeBST(tree, max, 1777);       // thêm ptu vào cây nhị phân tìm kiếm
+    Print_BST(tree, max);
 
-    search_BST(tree, 100, 2004); 
-    search_BST(tree, 100, 1111);
+    search_BST(tree, max, 2004); 
+    search_BST(tree, max, 1111);
 
     return 0;
 }
