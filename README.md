@@ -16,4 +16,9 @@
 # Bài tập về nhà tuần 12  
 * Cài đặt giải thuật sắp xếp vun đống cho các cây ví dụ trong slide và trên bảng, in ra từng trạng thái lưu trữ cho mỗi bước vun đống và sắp xếp        
 
+# Bài tập về nhà tuần 13
+* Cài đặt cây nhị phân tìm kiếm (BST) , xây dựng BST từ 1 mảng cho trước, yêu cầu thêm node, tìm kiếm giá trị trên BST , tính độ phức tạp thuật toán của thuật toán tìm kiếm trên BST
+* Độ phức tạp của thuật toán là O (log2(n)), do từ 1 mảng cho trước, cây nhị phân tìm kiếm dựng lên có chiều cao tối đa log2(n), mỗi lần so sánh để tìm kiếm phần tử có độ phức tạp O(1), cần log2(n) lần so sánh. Do vậy, độ phức tạp thuật toán của thuật toán tìm kiếm trên cây nhị phân tìm kiếm là: O(log2n).
+
+  
 TỔNG HỢP BTVN _ CTDL-GT _ 169185 _ ĐẶNG VĂN DUY _ 202414085
