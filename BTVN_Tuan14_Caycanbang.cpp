@@ -1,5 +1,4 @@
 #include <iostream>
-#include <algorithm>
 using namespace std;
 
 struct AvlNode {
@@ -23,6 +22,9 @@ int HeightDiff(AvlNode *t) {   // hàm tính độ lệch tại 1 nút, dùng đ
     if (t == NULL) return 0;
     return height(t->left) - height(t->right);   
 }
+
+int max(int a, int b) {   // Hàm tìm gtri lớn hơn giữa 2 số, dùng để cập nhật chiều cao cây
+    return (a > b) ? a : b; 
 
 void rotateWithLeftChild(AvlNode *&k2) {  // Hàm xoay đơn trái, gọi k2 là nút cha mất cân bằng, k1 là con trái của k2
     AvlNode *k1 = k2->left;     // Giữ địa chỉ của k1 để xoay
