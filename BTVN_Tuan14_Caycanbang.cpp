@@ -82,29 +82,22 @@ void insertBST(int x, AvlNode *&t) {      // Hàm để thêm 1 giá trị vào 
         doubleWithRightChild(t); }   }
 }
 
-
-bool Checkbalance(AvlNode *t) {    // Hàm kiểm tra xem cây có cân bằng kh
-    if (t == NULL) return true;
-    
-    int balance = HeightDiff(t);
-    if (balance > 1 || balance < -1) return false; // Chỉ cần 1 nút không thỏa mãn là cả cây kh cân bằng
-    
-    return Checkbalance(t->left) && Checkbalance(t->right); // Đệ quy ktra cả 2 con 
+void Printtree(AvlNode *t) {  // Hàm in cay nhị phân theo thứ tự trước
+    if (t != NULL) {
+        cout << t->elem << " ";        
+        Printtree(t->left);        
+        Printtree(t->right);       
     }
-
-void Printcheck(AvlNode *root) {    // Hàm chạy để in ra kết quả cuối cùng 
-    if (Checkbalance(root))  cout << "Can bang" << endl;
-    else   cout << "Khong can bang" << endl;
 }
 
 int main() {
     AvlNode *root = NULL;
-    int Tree[] = {50, 20, 70, 10, 30, 25};
+    int Tree[] = {32, 51, 27, 83, 96, 11, 45, 75, 66};
     int n = sizeof(Tree) / sizeof(Tree[0]);
 
     for (int i = 0; i < n; i++) {
         insertBST(Tree[i], root); }
 
-    Printcheck(root);
+    Printtree(root);
     return 0;
 }
