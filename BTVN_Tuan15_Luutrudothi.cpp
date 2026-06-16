@@ -26,9 +26,11 @@ void ThemDuongMaTran(Matran &g, int u, int v, int matuyen) {
 
 
 
-struct Nut {       // Định nghĩa node
-    int maTuyenTinh;    
-    Nut* tiepTheo;      };
+struct Nut {       // Dnghia nut
+    int idTinhKe;      // Tỉnh kề
+    int maTuyenDuong;  // Mã đường
+    Nut* tiepTheo;      
+};
 
 struct DanhSachDoThi {   // Định nghĩa ds lien ke
     int Sotinhxet;
@@ -40,14 +42,17 @@ void Khoitaods(DanhSachDoThi &dt, int n) {  // DS trống (null)
 }
 
 void ThemDuongDanhSach(DanhSachDoThi &dt, int u, int v, int maTuyen) { // bo sung
-   // ham ket noi 2 node u voi v, tinh u co duogn den v và ngược lại
-    Nut* nutMoi1 = new Nut;     // Thêm v vào danh sách của u
-    nutMoi1->maTuyenTinh = v;
+    // ham ket noi 2 node u voi v, tinh u co duogn den v và ngược lại
+    Nut* nutMoi1 = new Nut;      // Thêm v vào danh sách của u
+    nutMoi1->idTinhKe = v;
+    nutMoi1->maTuyenDuong = maTuyen; // cap nhat ma tuyến
     nutMoi1->tiepTheo = dt.dau[u];
     dt.dau[u] = nutMoi1;
 
-    Nut* nutMoi2 = new Nut;   // Thêm u vào danh sách của v 
-    nutMoi2->maTuyenTinh = u;
+    // Thêm u vào danh sách của v , tương tự
+    Nut* nutMoi2 = new Nut;   
+    nutMoi2->idTinhKe = u;
+    nutMoi2->maTuyenDuong = maTuyen;
     nutMoi2->tiepTheo = dt.dau[v];
     dt.dau[v] = nutMoi2;
 }
@@ -68,6 +73,26 @@ void InMaTran(Matran g) {
         cout << endl;
     }   }
 
+void InDanhSach(DanhSachDoThi dt) {
+    cout << "\n DANH SACH LIEN KET " << endl;
+    for (int i = 0; i < dt.Sotinhxet; i++) {     
+        cout << setw(3) << DSTinh[i] << " -> ";   // In ra tên tỉnh hiện tại đang xét
+        
+        Nut* tam = dt.dau[i];
+        if (tam == nullptr) {
+            cout << "Khong co tuyen duong nao";
+        } else {
+            while (tam != nullptr) {   // Duyệt DSLK tỉnh htai
+                cout << DSTinh[tam->idTinhKe] << " D" << tam->maTuyenDuong; // in theo de bai 
+                if (tam->tiepTheo != nullptr) cout << " -> "; 
+                tam = tam->tiepTheo; 
+            }   
+        }
+        cout << endl;
+    }   
+}
+
+
 int main() {
     int n = Sotinh_max;
     Matran g; 
@@ -81,9 +106,13 @@ int main() {
 // Nạp dữ liệu vào cấu trúc ma trận 
 
     int soTuyen = sizeof(CacTuyenDuong) / sizeof(CacTuyenDuong[0]);
-    for(int i = 0; i < soTuyen; i++) { ThemDuongMaTran(g, CacTuyenDuong[i][0], CacTuyenDuong[i][1], CacTuyenDuong[i][2]);}
-
+    for(int i = 0; i < soTuyen; i++) { ThemDuongMaTran(g, CacTuyenDuong[i][0], CacTuyenDuong[i][1], CacTuyenDuong[i][2]);
+    
+    ThemDuongDanhSach(dt, CacTuyenDuong[i][0], CacTuyenDuong[i][1], CacTuyenDuong[i][2]);
+    }
 
     InMaTran(g);
+    InDanhSach(dt);
+
     return 0;
 }
