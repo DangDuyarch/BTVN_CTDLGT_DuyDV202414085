@@ -57,8 +57,28 @@ void ThemDuongDanhSach(DanhSachDoThi &dt, int u, int v, int maTuyen) { // bo sun
     dt.dau[v] = nutMoi2;
 }
 
+void BFS_MaTran(Matran g, int dinhBatDau) {   // Hàm duyệt theo chiều rộng (BFS)
+    bool Daduyet[Sotinh_max] = {false}; // Mảng check đỉnh đã duyệt
+    queue<int> hangDoi;                // Hàng đợi q để quản lý các đỉnh kề
+
+    Daduyet[dinhBatDau] = true;   // Đánh dấu đỉnh gốc và đẩy vào hàng đợi
+    hangDoi.push(dinhBatDau);
+
+    while (!hangDoi.empty()) {   
+        int u = hangDoi.front(); // Lấy đỉnh đầu tiên ra khỏi hàng đợi
+        hangDoi.pop();           // Quy tắc 2
+
+        cout << DSTinh[u] << " -> ";   
+
+        for (int v = 0; v < g.Sotinhxet; v++) {   // Có đường
+            if (g.matrix[u][v] != 0 && !Daduyet[v]) {
+                Daduyet[v] = true;     // Đánh dấu đỉnh là đã được duyệt
+                hangDoi.push(v);      // Đẩy vào trong hàng đợi
+            } } }
+    cout << "END" << endl; }
 
 void InMaTran(Matran g) {
+        cout << "\n LUU TRU THEO MA TRAN LAN CAN " << endl;
     cout << setw(15) << " ";
   for (int j = 0; j < g.Sotinhxet; j++) {   cout << setw(15) << DSTinh[j]; }  // in ten tỉnh theo hàng
     cout << endl;
@@ -74,7 +94,7 @@ void InMaTran(Matran g) {
     }   }
 
 void InDanhSach(DanhSachDoThi dt) {
-    cout << "\n DANH SACH LIEN KET " << endl;
+    cout << "\n LUU TRU THEO DANH SACH LIEN KET " << endl;
     for (int i = 0; i < dt.Sotinhxet; i++) {     
         cout << setw(3) << DSTinh[i] << " -> ";   // In ra tên tỉnh hiện tại đang xét
         
@@ -89,15 +109,13 @@ void InDanhSach(DanhSachDoThi dt) {
             }   
         }
         cout << endl;
-    }   
-}
-
+    }   }
 
 int main() {
     int n = Sotinh_max;
     Matran g; 
     Khoitaomatran(g, n);
-    DanhSachDoThi dt; 
+    DanhSachDoThi dt;
     Khoitaods(dt, n);
 
   
@@ -113,6 +131,6 @@ int main() {
 
     InMaTran(g);
     InDanhSach(dt);
-
-    return 0;
-}
+        cout << "\n DUYET DO THI THEO CHIEU RONG VA IN TU HN  " << endl;
+    BFS_MaTran(g, 0);
+return 0;}
