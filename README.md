@@ -21,5 +21,8 @@
 * Độ phức tạp trung bình của thuật toán là O (log(n)
 
 # Bài tập về nhà tuần 14
-* Cài đặt cây cân bằng AVL với đầu vào là dãy số cho trước , thực hiện các thao tác thêm và duyệt cây để in ra giá trị của các phần tử trên cây.      
+* Cài đặt cây cân bằng AVL với đầu vào là dãy số cho trước , thực hiện các thao tác thêm và duyệt cây để in ra giá trị của các phần tử trên cây.
+
+ # Bài tập về nhà tuần 15
+* Cài đặt bài đồ thị giao thông, theo 2 cấu trúc lưu trữ mảng đỉnh kề và danh sách liên két, duyệt theo chiều rộng (BFS) và in theo thứ tự duyệt từ đỉnh Hà Nội     
 TỔNG HỢP BTVN _ CTDL-GT _ 169185 _ ĐẶNG VĂN DUY _ 202414085
