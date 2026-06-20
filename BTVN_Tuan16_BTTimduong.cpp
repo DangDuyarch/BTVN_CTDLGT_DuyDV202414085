@@ -4,12 +4,10 @@
 #include <iomanip>
 using namespace std;
 
-const int Sotinh_max = 11;    // khai bao 11 tinh theo de bai
+const int Sotinh_max = 5;    // khai bao 5 dinh theo de bai, sua lai tu 11 tinh
 const int INF = 1e9;          // INF là vo cuc, dung trong thuat toan dijkstra
 
-const string DSTinh[Sotinh_max] = {     // 11 tinh thoe bai
-    "HN", "TN", "BN", "BG", "UB", "HP", "HD", "HY", "PL", "HB", "ST"};
-// Các ký hiệu tương đương : Hà Nội, Thái Nguyên, Bắc Ninh,... theo đề bài
+const string DSTinh[Sotinh_max] = { "A", "B", "C", "D", "E"};  // Chinh sua lai cho vi du Dijkstra, slide 29
 
 struct Matran {   // khai báo
     int Sotinhxet;
@@ -91,32 +89,32 @@ int main() {
     int n = Sotinh_max;
     Matran g; 
     Khoitaomatran(g, n);
+int CacTuyenDuong[][3] = {  {0, 1, 4}, {0, 2, 2}, {1, 2, 5}, {1, 3, 10}, 
+ {2, 3, 3},  {2, 4, 7}, {3, 4, 4}  }; // cap nhat lai dlieu
 
-    int CacTuyenDuong[][3] = {  {0, 6, 1},  {6, 7, 2}, {7, 8, 3},  {0, 8, 4}, {0, 9, 5},  {0, 10, 6}, {0, 1, 7},  
-    {0, 2, 8},  {2, 3, 9}, {3, 4, 10}, {2, 4, 11},  {4, 5, 12},{6, 5, 13}  };
-    
     int soTuyen = sizeof(CacTuyenDuong) / sizeof(CacTuyenDuong[0]);
     
     for(int i = 0; i < soTuyen; i++) { 
     ThemDuongMaTran(g, CacTuyenDuong[i][0], CacTuyenDuong[i][1], CacTuyenDuong[i][2]);}
-
+    cout << "             Ma tran ban dau" << endl ; 
     Inmatran(g.matrix, n);
 
+
+    cout << " \n    Ma tran tim duong di ( thuat toan Warshall)" << endl; 
     int P[Sotinh_max][Sotinh_max];
     mtrwarshall(g, P);
     Inmatran(P, n);
 
-    // khai bao de goi ham
-    int kc[Sotinh_max];
+    int kc[Sotinh_max];       // khai bao de goi ham
     int tinhtruoc[Sotinh_max];
-    int nguon = 0; // vi du tu Ha Noi
+    int nguon = 0; // vi du tu dinh A
     
     mtr_Dijkstra(g, nguon, kc, tinhtruoc);  // goi ham khoi tao
+    cout << " \nTim duong di ngan nhat bang thuat toan Dijkstra (xet tu dinh A):" << endl; 
+    cout << left << setw(15) << "Tinh" << "Kc" << endl;
 
-    cout << left << setw(10) << "Tinh" << "Kc" << endl;
-
-    for (int i = 0; i < n; i++) {  // test ham khoi tao voi HN lam goc
-        cout << left << setw(10) << DSTinh[i];
+    for (int i = 0; i < n; i++) {  // test ham khoi tao voi dinh A lam goc
+        cout  << left << setw(15) << DSTinh[i];
         if (kc[i] == INF)   cout << "Vo cung  " << endl;
         else   cout << kc[i] << endl;      }
 
