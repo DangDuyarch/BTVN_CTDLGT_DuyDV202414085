@@ -21,10 +21,52 @@ void Khoitaomatran(Matran &g, int n) { // tạo mtr trống (0)
 }
 
 void ThemDuongMaTran(Matran &g, int u, int v, int matuyen) {
-    g.matrix[u][v] = matuyen;  // cap nhat lai, khph ton tai ma la tuyen duong
+    g.matrix[u][v] = matuyen;  
     g.matrix[v][u] = matuyen; }
 
 
+void Mtrduongdi(Matran g, int P[Sotinh_max][Sotinh_max]) {
+int n = g.Sotinhxet;
+for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) {  // duyet toan ma tran
+        if (i == j) P[i][j] = 1;    // luon co duogn den chinh no
+            else if (g.matrix[i][j] != 0) P[i][j] = 1; // co duong
+        else 
+                P[i][j] = 0; // Neu =0 thi co the kh co duong di truc tiep
+            } }
+    }
+
+
+void Inmatran(int P[Sotinh_max][Sotinh_max], int n) {
+
+    cout << setw(6) << " ";
+    for (int j = 0; j < n; j++) { cout << setw(5) << DSTinh[j]; }
+    cout << endl;
+    for (int i = 0; i < n; i++) {
+        cout << setw(6) << DSTinh[i];
+        for (int j = 0; j < n; j++)    cout << setw(5) << P[i][j];
+        cout << endl;
+    }  }
+
+
 int main() {
-        return 0;
+    int n = Sotinh_max;
+    Matran g; 
+    Khoitaomatran(g, n);
+
+    int CacTuyenDuong[][3] = {  {0, 6, 1},  {6, 7, 2}, {7, 8, 3},  {0, 8, 4}, {0, 9, 5},  {0, 10, 6}, {0, 1, 7},  
+    {0, 2, 8},  {2, 3, 9}, {3, 4, 10}, {2, 4, 11},  {4, 5, 12},{6, 5, 13}  };
+    int soTuyen = sizeof(CacTuyenDuong) / sizeof(CacTuyenDuong[0]);
+    
+    for(int i = 0; i < soTuyen; i++) { 
+    ThemDuongMaTran(g, CacTuyenDuong[i][0], CacTuyenDuong[i][1], CacTuyenDuong[i][2]);}
+
+    Inmatran(g.matrix, n);
+
+    int P[Sotinh_max][Sotinh_max];
+    Mtrduongdi(g, P);
+    Inmatran(P, n);
+
+    return 0;
 }
+
