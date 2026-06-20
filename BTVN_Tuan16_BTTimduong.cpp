@@ -53,12 +53,30 @@ for (int i = 0; i < n; i++) {    // khoi tao
     kc[i] = INF;            // kc den cac dinh khac là vo cung
     daduyet[i] = false;     // chua co tinh nao duyet khi khoi tao
     tinhtruoc[i] = -1;  }     // kh co tinh da duyet qua
-   
-    kc[Dinhdau] = 0; } // kc den chinh no bang 0
+    kc[Dinhdau] = 0;  // kc den chinh no bang 0
 
+    for (int i = 0; i < n - 1; i++) {
+        int kc_min = INF;   
+        int u = -1;
+        for (int i = 0; i < n; i++) {
+            if (!daduyet[i] && kc[i] < kc_min) { // tim tinh gan nhat chua duyet
+            kc_min = kc[i];   // cap nhat kc nho nhat
+            u = i;}  // cap nhat tinh u gan nhat
+        }   
+        if (u == -1) break;  // neu kh co duong di den tinh khac thi dung
+        daduyet[u] = true; // Danh dau da xet qua u
 
+        for (int v = 0; v < n; v++) {   // duyet tat ca cac dinh
+            if (!daduyet[v] && g.matrix[u][v] != 0) {    // neu gap tinh chua duyet (v) va co duogn di tu u toi do
+                if (kc[u] + g.matrix[u][v] < kc[v]) {   // neu kc tu dau den u + kc tu u den v nho hon kc tu dau den v
+                kc[v] = kc[u] + g.matrix[u][v]; // Cap nhat kc
+                tinhtruoc[v] = u;   }                       //danh dau lai: đi qua u rồi tới v
+            }   }
+    }
+}
+
+// ham in ma tran
 void Inmatran(int P[Sotinh_max][Sotinh_max], int n) {
-
     cout << setw(6) << " ";
     for (int j = 0; j < n; j++) { cout << setw(5) << DSTinh[j]; }
     cout << endl;
@@ -76,6 +94,7 @@ int main() {
 
     int CacTuyenDuong[][3] = {  {0, 6, 1},  {6, 7, 2}, {7, 8, 3},  {0, 8, 4}, {0, 9, 5},  {0, 10, 6}, {0, 1, 7},  
     {0, 2, 8},  {2, 3, 9}, {3, 4, 10}, {2, 4, 11},  {4, 5, 12},{6, 5, 13}  };
+    
     int soTuyen = sizeof(CacTuyenDuong) / sizeof(CacTuyenDuong[0]);
     
     for(int i = 0; i < soTuyen; i++) { 
