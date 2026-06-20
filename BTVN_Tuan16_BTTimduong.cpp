@@ -5,6 +5,8 @@
 using namespace std;
 
 const int Sotinh_max = 11;    // khai bao 11 tinh theo de bai
+const int INF = 1e9;          // INF là vo cuc, dung trong thuat toan dijkstra
+
 const string DSTinh[Sotinh_max] = {     // 11 tinh thoe bai
     "HN", "TN", "BN", "BG", "UB", "HP", "HD", "HY", "PL", "HB", "ST"};
 // Các ký hiệu tương đương : Hà Nội, Thái Nguyên, Bắc Ninh,... theo đề bài
@@ -42,6 +44,18 @@ for (int k = 0; k < n; k++) {  // do tung gia tri dinh trung gian k
     }  }
  }
 
+ // Thuat toan tim duong di ngan nhat Dijkstra
+void mtr_Dijkstra(Matran g, int Dinhdau, int kc[Sotinh_max], int tinhtruoc[Sotinh_max]) {
+    int n = g.Sotinhxet;
+    bool daduyet[Sotinh_max];  // Mang dung de danh dau cac dinh da duyet
+
+for (int i = 0; i < n; i++) {    // khoi tao
+    kc[i] = INF;            // kc den cac dinh khac là vo cung
+    daduyet[i] = false;     // chua co tinh nao duyet khi khoi tao
+    tinhtruoc[i] = -1;  }     // kh co tinh da duyet qua
+   
+    kc[Dinhdau] = 0; } // kc den chinh no bang 0
+
 
 void Inmatran(int P[Sotinh_max][Sotinh_max], int n) {
 
@@ -72,6 +86,20 @@ int main() {
     int P[Sotinh_max][Sotinh_max];
     mtrwarshall(g, P);
     Inmatran(P, n);
+
+    // khai bao de goi ham
+    int kc[Sotinh_max];
+    int tinhtruoc[Sotinh_max];
+    int nguon = 0; // vi du tu Ha Noi
+    
+    mtr_Dijkstra(g, nguon, kc, tinhtruoc);  // goi ham khoi tao
+
+    cout << left << setw(10) << "Tinh" << "Kc" << endl;
+
+    for (int i = 0; i < n; i++) {  // test ham khoi tao voi HN lam goc
+        cout << left << setw(10) << DSTinh[i];
+        if (kc[i] == INF)   cout << "Vo cung  " << endl;
+        else   cout << kc[i] << endl;      }
 
     return 0;
 }
