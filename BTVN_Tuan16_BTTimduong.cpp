@@ -25,16 +25,22 @@ void ThemDuongMaTran(Matran &g, int u, int v, int matuyen) {
     g.matrix[v][u] = matuyen; }
 
 
-void Mtrduongdi(Matran g, int P[Sotinh_max][Sotinh_max]) {
+void mtrwarshall(Matran g, int P[Sotinh_max][Sotinh_max]) {
 int n = g.Sotinhxet;
 for (int i = 0; i < n; i++) {
     for (int j = 0; j < n; j++) {  // duyet toan ma tran
         if (i == j) P[i][j] = 1;    // luon co duogn den chinh no
             else if (g.matrix[i][j] != 0) P[i][j] = 1; // co duong
         else 
-                P[i][j] = 0; // Neu =0 thi co the kh co duong di truc tiep
+            P[i][j] = 0; // Neu =0 thi co the kh co duong di truc tiep
             } }
-    }
+// bo sung thuat toan warshall
+for (int k = 0; k < n; k++) {  // do tung gia tri dinh trung gian k
+    for (int i = 0; i < n; i++) {   // duyyet toan mtr
+        for (int j = 0; j < n; j++) {
+            if (P[i][j] == 0) {  P[i][j] = P[i][k] && P[k][j]; } } // lap lai de tim duong
+    }  }
+ }
 
 
 void Inmatran(int P[Sotinh_max][Sotinh_max], int n) {
@@ -64,7 +70,7 @@ int main() {
     Inmatran(g.matrix, n);
 
     int P[Sotinh_max][Sotinh_max];
-    Mtrduongdi(g, P);
+    mtrwarshall(g, P);
     Inmatran(P, n);
 
     return 0;
