@@ -66,9 +66,33 @@ void ThuatToanPrim(Matran &g) {
         }
     }
     cout << endl;
-
-
 }
+
+struct Canh {   int u, v, ts;  };  // khai bao thong tin 1 canh
+
+int Timgoc(int cha[], int i) {
+    return (cha[i] == -1) ? i : Timgoc(cha, cha[i]);  }
+
+void TTKruskal(Matran &g) {
+    int n = g.Sotinhxet, socanh = 0;
+    Canh ds[100]; 
+
+for (int i = 0; i < n; i++) {
+    for (int j = i + 1; j < n; j++) { // duyet tim nua tren ma trạn doi xung
+    if (g.matrix[i][j] > 0) {   // co duong
+        ds[socanh] = {i, j, g.matrix[i][j]}; // luu
+        socanh++;    } }
+}
+
+for (int i = 0; i < socanh - 1; i++) {   // sap xep cac canh theo thu tu trong so
+    for (int j = i + 1; j < socanh; j++) {
+        if (ds[i].ts > ds[j].ts) swap(ds[i], ds[j]);  }
+}
+
+cout << "\nThuat toan Kruskal - Sap xep cac canh:\n"; // in ra
+for (int i = 0; i < socanh; i++) {
+    cout << DSTinh[ds[i].u] << " -> " << DSTinh[ds[i].v] << " = " << ds[i].ts << ((i < socanh - 1) ? ", " : "\n\n");} 
+ }
 
 // ham in ma tran
 void Inmatran(int P[Sotinh_max][Sotinh_max], int n) {
@@ -97,7 +121,7 @@ int CacTuyenDuong[][3] = { {0, 6, 1}, {6, 7, 2}, {8, 7, 3}, {0, 8, 4}, {0, 9, 5}
     Inmatran(g.matrix, n);
 
     ThuatToanPrim(g);
-
+    TTKruskal(g);
     return 0;
 }
 
