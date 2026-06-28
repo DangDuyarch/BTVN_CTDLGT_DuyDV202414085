@@ -27,6 +27,9 @@
 * Cài đặt bài đồ thị giao thông, theo 2 cấu trúc lưu trữ mảng đỉnh kề và danh sách liên két, duyệt theo chiều rộng (BFS) và in theo thứ tự duyệt từ đỉnh Hà Nội
 
  # Bài tập về nhà tuần 16     
-* Cài đặt thuật toán tìm đường đi (thuật toán Warshall) và tìm đường đi ngắn nhất (thuật toán Dijkstra) cho đồ thị các tỉnh thành tuần 15      
+* Cài đặt thuật toán tìm đường đi (thuật toán Warshall) và tìm đường đi ngắn nhất (thuật toán Dijkstra) cho đồ thị các tỉnh thành tuần 15
+
+ # Bài tập về nhà tuần 18         
+* Tìm cây khung nhỏ nhất theo thuật toán PRIM và KRUSKAL của bài đồ thị giao thông, biết Hoà Bình sẽ là đỉnh bắt đầu của cây khung PRIM      
  
 TỔNG HỢP BTVN _ CTDL-GT _ 169185 _ ĐẶNG VĂN DUY _ 202414085
