@@ -37,7 +37,7 @@ void ThuatToanPrim(Matran &g) {
 
     CanhChon dsCanh[Sotinh_max];
     int soCanh = 0;
-
+    cout << "\nThuat toan PRIM:\n";
     for (int i = 0; i < n - 1; i++) { // n đinh, duyet n-1 lân
         int trso_min = INF;
         int u_min = -1, v_min = -1;  // bien danh dau
@@ -52,6 +52,7 @@ void ThuatToanPrim(Matran &g) {
                 v_min = j; }  // danh dau cap dinh ngan nhat
              } }
         }
+     
     if (u_min != -1 && v_min != -1) { // nếu tim duoc duong di moi
         cout << "Chon canh " << DSTinh[u_min] << " -> " << DSTinh[v_min] << " = " << trso_min << endl;
         Daduyet[v_min] = true;     // Kết nạp đỉnh mới vào cây
@@ -92,7 +93,29 @@ for (int i = 0; i < socanh - 1; i++) {   // sap xep cac canh theo thu tu trong s
 cout << "\nThuat toan Kruskal - Sap xep cac canh:\n"; // in ra
 for (int i = 0; i < socanh; i++) {
     cout << DSTinh[ds[i].u] << " -> " << DSTinh[ds[i].v] << " = " << ds[i].ts << ((i < socanh - 1) ? ", " : "\n\n");} 
- }
+ 
+int cha[Sotinh_max];
+    for (int i = 0; i < n; i++) cha[i] = -1; // Ban dau, cac tinh nam doc lap
+
+    Canh caykhung[Sotinh_max]; // Mang luu cac canh duoc chọn
+    int socanhcay = 0;
+
+    for (int i = 0; i < socanh; i++) {
+        int goc_u = Timgoc(cha, ds[i].u);
+        int goc_v = Timgoc(cha, ds[i].v);
+
+    if (goc_u != goc_v) {  // gốc khac -> kh tao thanh chu trinh
+        cout << "Them " << DSTinh[ds[i].u] << " -> " << DSTinh[ds[i].v] << " = " << ds[i].ts << endl; 
+        caykhung[socanhcay++] = ds[i]; // luu vao mang
+        cha[goc_u] = goc_v;            // gop 2 cum
+    } }
+
+    cout << "\nCay khung nho nhat: ";  // in ra ket luan
+    for (int i = 0; i < socanhcay; i++) {
+        cout << DSTinh[caykhung[i].u] << " -> " << DSTinh[caykhung[i].v];
+        if (i < socanhcay - 1) cout << ", "; }
+    cout << endl;
+}
 
 // ham in ma tran
 void Inmatran(int P[Sotinh_max][Sotinh_max], int n) {
