@@ -27,10 +27,16 @@ void ThemDuongMaTran(Matran &g, int u, int v, int matuyen) {
     g.matrix[u][v] = matuyen;  
     g.matrix[v][u] = matuyen; }
 
+struct CanhChon {  
+     int u, v;   };
+
 void ThuatToanPrim(Matran &g) {
     int n = g.Sotinhxet;
     bool Daduyet[Sotinh_max] = {false};  // Mang danh dau tinh da duyet ( nam trong cay)
-    Daduyet[0] = true;     // Duyet tu Ha Noi
+    Daduyet[9] = true;     // Duyet tu Ha Noi
+
+    CanhChon dsCanh[Sotinh_max];
+    int soCanh = 0;
 
     for (int i = 0; i < n - 1; i++) { // n đinh, duyet n-1 lân
         int trso_min = INF;
@@ -48,10 +54,21 @@ void ThuatToanPrim(Matran &g) {
         }
     if (u_min != -1 && v_min != -1) { // nếu tim duoc duong di moi
         cout << "Chon canh " << DSTinh[u_min] << " -> " << DSTinh[v_min] << " = " << trso_min << endl;
-        Daduyet[v_min] = true;   }   // Kết nạp đỉnh mới vào cây
-    else  break; 
+        Daduyet[v_min] = true;     // Kết nạp đỉnh mới vào cây
+        dsCanh[soCanh++] = {u_min, v_min};   }   // lưu vào mảng để in ra kq
+    else  break;    } 
 
-}   }
+    cout << "\nCay khung nho nhat: ";
+    for (int i = 0; i < soCanh; i++) {
+        cout << DSTinh[dsCanh[i].u] << " -> " << DSTinh[dsCanh[i].v]; // in ra cac canh vua chon
+        if (i < soCanh - 1) {
+            cout << ", "; // them , và tao khoang cach cho dep
+        }
+    }
+    cout << endl;
+
+
+}
 
 // ham in ma tran
 void Inmatran(int P[Sotinh_max][Sotinh_max], int n) {
