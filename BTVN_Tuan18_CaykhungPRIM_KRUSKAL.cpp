@@ -33,11 +33,11 @@ struct CanhChon {
 void ThuatToanPrim(Matran &g) {
     int n = g.Sotinhxet;
     bool Daduyet[Sotinh_max] = {false};  // Mang danh dau tinh da duyet ( nam trong cay)
-    Daduyet[9] = true;     // Duyet tu Ha Noi
+    Daduyet[9] = true;     // Duyet tu Hoa Binh (10), danh so tu 0 -> HB(9)
 
     CanhChon dsCanh[Sotinh_max];
     int soCanh = 0;
-    cout << "\nThuat toan PRIM:\n";
+    cout << "\nThuat toan PRIM (Bat dau tu dinh Hoa Binh):\n";
     for (int i = 0; i < n - 1; i++) { // n đinh, duyet n-1 lân
         int trso_min = INF;
         int u_min = -1, v_min = -1;  // bien danh dau
